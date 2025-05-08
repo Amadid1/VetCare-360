@@ -1,12 +1,11 @@
 const mongoose = require('mongoose');
 
-const OwnerSchema = new mongoose.Schema({
-  firstName: String,
-  lastName: String,
-  address: String,
-  city: String,
-  telephone: String,
-  pets: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Pet' }]
+const ownerSchema = new mongoose.Schema({
+  firstName: { type: String, required: true },
+  lastName: { type: String, required: true },
+  address: { type: String, required: true },
+  city: { type: String, required: true },
+  phone: { type: String, required: true }
 });
 
-module.exports = mongoose.model('Owner', OwnerSchema);
+module.exports = mongoose.model('Owner', ownerSchema);

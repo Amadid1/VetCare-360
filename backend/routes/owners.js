@@ -2,34 +2,33 @@ const express = require('express');
 const router = express.Router();
 const Owner = require('../models/Owner');
 
-// Ajouter ces lignes !
-const Visit = require('../models/Visit');
-const Veterinarian = require('../models/Veterinarian');
+// Obtenir tous les propriétaires
+router.get('/', async (req, res) => {
+  try {
+    const owners = await Owner.find();
+    res.json(owners);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
 
-router.get('/search', async (req, res) => {
-  const { lastName } = req.query;
+// Ajouter un propriétaire
+router.post('/', async (req, res) => {
+  const { firstName, lastName, address, city, phone } = req.body;
+
+  const newOwner = new Owner({
+    firstName,
+    lastName,
+    address,
+    city,
+    phone
+  });
 
   try {
-    const owner = await Owner.findOne({ lastName })
-      .populate({
-        path: 'pets',
-        populate: {
-          path: 'visits',
-          populate: {
-            path: 'vetId',
-            model: 'Veterinarian'
-          }
-        }
-      });
-
-    if (!owner) {
-      return res.status(404).json({ message: 'Owner not found' });
-    }
-
-    res.json(owner);
+    const savedOwner = await newOwner.save();
+    res.status(201).json(savedOwner);
   } catch (err) {
-    console.error('Erreur lors de la recherche du propriétaire :', err);
-    res.status(500).json({ message: 'Erreur serveur' });
+    res.status(400).json({ message: err.message });
   }
 });
 
