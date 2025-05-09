@@ -1,0 +1,25 @@
+
+  
+  .welcome-text h1 {
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.6);
+    font-size: 3rem;
+    font-weight: bold;
+    color: #ffffff;
+  }
+  
+  .custom-card {
+    width: 11rem;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s;
+  }
+  
+  .custom-card:hover {
+    transform: scale(1.05);
+  }
+  
+  .card-title {
+    font-weight: bold;
+    color: #333;
+  }
+  
